@@ -1,8 +1,11 @@
+import { FileEntryLike } from './file-system-api-mask';
+
 /**
  * Options that dictate how a RotatingFileStream instance should function.
  */
 export interface RotatingFileStreamOptions {
-
+	files: FileEntryLike[];
+	maxSize: number;
 }
 
 /**
@@ -11,5 +14,5 @@ export interface RotatingFileStreamOptions {
 export const normalizeRotatingFileStreamOptions = (
 	explicitOptions: Partial<RotatingFileStreamOptions>
 ): RotatingFileStreamOptions => {
-	return {};
+	return { files: [], maxSize: 500000 };
 };

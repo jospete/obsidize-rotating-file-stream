@@ -22,4 +22,8 @@ export class RotatingFileStream {
 	) {
 		this.options = normalizeRotatingFileStreamOptions(options);
 	}
+
+	public async write(data: ArrayBuffer): Promise<void> {
+
+	}
 }
