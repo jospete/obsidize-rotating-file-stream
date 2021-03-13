@@ -1,0 +1,32 @@
+{
+  "name": "@obsidize/rotating-file-stream",
+  "version": "0.0.1",
+  "description": "A rotating file stream based on the cordova File plugin API",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jospete/obsidize-rotating-file-stream.git"
+  },
+  "keywords": [
+    "cordova",
+    "ionic",
+    "file",
+    "stream",
+    "rotating",
+    "rotate",
+    "log",
+    "logger"
+  ],
+  "author": "Josh Noel <jpnoel618@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jospete/obsidize-rotating-file-stream/issues"
+  },
+  "homepage": "https://github.com/jospete/obsidize-rotating-file-stream#readme",
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
