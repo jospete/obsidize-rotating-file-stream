@@ -1,3 +1,8 @@
-export { RotatingFileStream } from './rotating-file-stream';
-export { FileSystemApiMask } from './file-system-api-mask';
+export {
+	RotatingFileStream,
+	FileEntryLike,
+	FileSystemApiMask,
+	RotatingFileStreamOptions,
+	normalizeRotatingFileStreamOptions
+} from './rotating-file-stream';
 export { MockFileSystemApi } from './mock-file-system-api';

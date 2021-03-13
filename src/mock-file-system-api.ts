@@ -1,9 +1,13 @@
-import { FileEntryLike, FileSystemApiMask } from './file-system-api-mask';
+import { FileEntryLike, FileSystemApiMask } from './rotating-file-stream';
 
 /**
  * Utility for testing this module in isolation.
  */
 export class MockFileSystemApi implements FileSystemApiMask {
+
+	prepareEntryForWrite(entry: FileEntryLike, overwrite: boolean): Promise<void> {
+		throw new Error('Method not implemented.');
+	}
 
 	refreshEntry(entry: FileEntryLike): Promise<FileEntryLike> {
 		throw new Error('Method not implemented.');
