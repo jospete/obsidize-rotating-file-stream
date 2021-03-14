@@ -1,15 +1,9 @@
-import { RotatingFileStream, MockFileSystemApi } from '../src';
+import { RotatingFileStream } from '../src';
 
 describe('RotatingFileStream', () => {
 
-	let api: MockFileSystemApi;
-
-	beforeEach(() => {
-		api = new MockFileSystemApi();
-	});
-
 	it('can be created', () => {
-		const stream = new RotatingFileStream(api);
+		const stream = new RotatingFileStream({ files: [], maxSize: 500000 });
 		expect(stream).toBeTruthy();
 	});
 });

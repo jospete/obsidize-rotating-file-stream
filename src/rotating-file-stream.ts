@@ -6,16 +6,8 @@ export interface FileEntryLike {
 	toURL(): string;
 	getSize(): number;
 	getLastModificationTime(): number;
-}
-
-/**
- * Core file system API layout that is required for 
- * this module to function effectively. 
- */
-export interface FileSystemApiMask<EntryType extends FileEntryLike> {
-	write(entry: EntryType, data: ArrayBuffer): Promise<void>;
-	prepareEntryForWrite(entry: EntryType, overwrite: boolean): Promise<void>;
-	refreshEntry(entry: EntryType): Promise<EntryType>;
+	refresh(): Promise<void>;
+	write(data: ArrayBuffer, overwrite: boolean): Promise<void>;
 }
 
 /**
@@ -25,15 +17,6 @@ export interface RotatingFileStreamOptions<EntryType extends FileEntryLike> {
 	files: EntryType[];
 	maxSize: number;
 }
-
-/**
- * Utility to ensure that sensible defaults are provided for missing options.
- */
-export const normalizeRotatingFileStreamOptions = <EntryType extends FileEntryLike>(
-	explicitOptions: Partial<RotatingFileStreamOptions<EntryType>>
-): RotatingFileStreamOptions<EntryType> => {
-	return { files: [], maxSize: 500000 };
-};
 
 /**
  * Core interface for publishing file data across multiple files seamlessly.
@@ -46,21 +29,17 @@ export const normalizeRotatingFileStreamOptions = <EntryType extends FileEntryLi
  * The methodology of how and when the rotation mechanism happens will be 
  * fully customizable through the options given in the constructor.
  */
-export class RotatingFileStream<EntryType extends FileEntryLike, ApiType extends FileSystemApiMask<EntryType>> {
-
-	private options: RotatingFileStreamOptions<EntryType>;
+export class RotatingFileStream<EntryType extends FileEntryLike> {
 
 	constructor(
-		protected readonly api: ApiType,
-		options: Partial<RotatingFileStreamOptions<EntryType>> = {}
+		protected readonly options: RotatingFileStreamOptions<EntryType>
 	) {
-		this.options = normalizeRotatingFileStreamOptions(options);
 	}
 
 	public async write(data: ArrayBuffer): Promise<void> {
 		const entry = await this.loadTargetEntry();
-		await this.api.prepareEntryForWrite(entry, this.isEntryFull(entry));
-		await this.api.write(entry, data);
+		const shouldOverwrite = this.isEntryFull(entry);
+		await entry.write(data, shouldOverwrite);
 	}
 
 	protected isEntryFull(entry: EntryType): boolean {
@@ -74,12 +53,6 @@ export class RotatingFileStream<EntryType extends FileEntryLike, ApiType extends
 		}
 
 		return this.isEntryFull(b) ? a : b;
-	}
-
-	// TODO: we probably want to add a caching optimization to 
-	// avoid having reload calls milliseconds apart from each other
-	protected async refreshEntry(entry: EntryType): Promise<EntryType> {
-		return this.api.refreshEntry(entry);
 	}
 
 	protected async loadTargetEntry(): Promise<EntryType> {
@@ -98,11 +71,10 @@ export class RotatingFileStream<EntryType extends FileEntryLike, ApiType extends
 
 		const { files } = this.options;
 
-		for (let i = 0; i < files.length; i++) {
-			files[i] = await this.refreshEntry(files[i]);
+		for (const file of files) {
+			await file.refresh();
 		}
 
-		this.options.files = files;
 		return files;
 	}
 }
