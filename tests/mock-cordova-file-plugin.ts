@@ -6,6 +6,7 @@ import {
 	CordovaFilePluginLike,
 	CordovaFileWriteOptions
 } from '../src';
+import { bufferFrom, bufferConcat } from './util';
 
 export class MockCordovaFileEntry implements CordovaFileEntryLike {
 
@@ -41,33 +42,6 @@ export class MockCordovaDirectoryEntry implements CordovaDirectoryEntryLike {
 		return this.fullPath;
 	}
 }
-
-const bufferFromText = async (text: string): Promise<ArrayBuffer> => {
-	return new TextEncoder().encode(text).buffer;
-};
-
-const bufferFromBlob = async (blob: Blob): Promise<ArrayBuffer> => {
-	return blob.arrayBuffer();
-};
-
-const bufferFrom = async (value: string | Blob | ArrayBuffer): Promise<ArrayBuffer> => {
-	if (typeof value === 'string') return bufferFromText(value as string);
-	if (value instanceof Blob) return bufferFromBlob(value as Blob);
-	return value;
-};
-
-const getBytes = (buffer: ArrayBuffer): number[] => {
-	return buffer
-		&& buffer instanceof ArrayBuffer
-		&& buffer.byteLength > 0
-		? Array.from(new Uint8Array(buffer))
-		: [];
-};
-
-const bufferConcat = (a: ArrayBuffer, b: ArrayBuffer): ArrayBuffer => {
-	const bytes = getBytes(a).concat(getBytes(b)).filter(v => typeof v === 'number');
-	return Uint8Array.from(bytes).buffer;
-};
 
 export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 

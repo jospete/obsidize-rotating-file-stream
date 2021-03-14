@@ -1,24 +1,6 @@
 import { CordovaFileEntryApi, RotatingFileStream } from '../src';
 import { MockCordovaFilePlugin } from './mock-cordova-file-plugin';
-
-const dumpHex = (bytes: number[]): string => {
-	return bytes.map(b => b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
-};
-
-const dumpHexBuffer = (buffer: ArrayBuffer): string => {
-	return dumpHex(Array.from(new Uint8Array(buffer)));
-};
-
-const generateRandomBuffer = (byteLength: number): ArrayBuffer => {
-
-	const bytes = [];
-
-	for (let i = 0; i < byteLength; i++) {
-		bytes[i] = Math.floor(Math.random() * 256);
-	}
-
-	return Uint8Array.from(bytes).buffer;
-};
+import { dumpHexBuffer, generateRandomBuffer } from './util';
 
 describe('RotatingFileStream', () => {
 
