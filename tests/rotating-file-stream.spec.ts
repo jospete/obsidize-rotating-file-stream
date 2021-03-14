@@ -1,15 +1,23 @@
 import { CordovaFileEntryApi, RotatingFileStream } from '../src';
 import { MockCordovaFilePlugin } from './mock-cordova-file-plugin';
 
+const dumpHex = (bytes: number[]): string => {
+	return bytes.map(b => b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
+};
+
+const dumpHexBuffer = (buffer: ArrayBuffer): string => {
+	return dumpHex(Array.from(new Uint8Array(buffer)));
+};
+
 const generateRandomBuffer = (byteLength: number): ArrayBuffer => {
 
-	const result = new ArrayBuffer(byteLength);
+	const bytes = [];
 
 	for (let i = 0; i < byteLength; i++) {
-		result[i] = Math.floor(Math.random() * 256);
+		bytes[i] = Math.floor(Math.random() * 256);
 	}
 
-	return result;
+	return Uint8Array.from(bytes).buffer;
 };
 
 describe('RotatingFileStream', () => {
@@ -45,6 +53,9 @@ describe('RotatingFileStream', () => {
 		await rfs.refreshAllEntries();
 
 		const readResult = await fileA.read();
+		console.log('mockData1  = ' + dumpHexBuffer(mockData1));
+		console.log('readResult = ' + dumpHexBuffer(readResult));
+
 		expect(readResult).toEqual(mockData1);
 
 		// Data of atomic write calls should not be broken apart.

@@ -43,7 +43,7 @@ export class MockCordovaDirectoryEntry implements CordovaDirectoryEntryLike {
 }
 
 const bufferFromText = async (text: string): Promise<ArrayBuffer> => {
-	return Uint8Array.from(Array.from(text).map(c => c.charCodeAt(0))).buffer;
+	return new TextEncoder().encode(text).buffer;
 };
 
 const bufferFromBlob = async (blob: Blob): Promise<ArrayBuffer> => {
