@@ -15,7 +15,7 @@ export class CordovaFileEntryApi implements FileEntryLike {
 
 	constructor(
 		protected readonly cordovaFile: CordovaFilePluginLike,
-		protected readonly baseCordovaDirectoryName: string,
+		protected readonly baseCordovaDirectoryNameDelegate: () => string,
 		protected readonly directoryName: string,
 		protected readonly fileName: string
 	) {
@@ -28,7 +28,7 @@ export class CordovaFileEntryApi implements FileEntryLike {
 	): CordovaFileEntryApi[] {
 		return CordovaFileEntryApi.createRotationFiles(
 			cordovaFile,
-			cordovaFile.cacheDirectory,
+			() => cordovaFile.cacheDirectory,
 			directory,
 			filenames
 		);
@@ -36,16 +36,20 @@ export class CordovaFileEntryApi implements FileEntryLike {
 
 	public static createRotationFiles(
 		cordovaFile: CordovaFilePluginLike,
-		baseDirectory: string,
+		baseDirectoryDelegate: () => string,
 		directory: string,
 		filenames: string[]
 	): CordovaFileEntryApi[] {
 		return filenames.map(filename => new CordovaFileEntryApi(
 			cordovaFile,
-			baseDirectory,
+			baseDirectoryDelegate,
 			directory,
 			filename
 		));
+	}
+
+	public get baseCordovaDirectoryName(): string {
+		return this.baseCordovaDirectoryNameDelegate();
 	}
 
 	public toURL(): string {
