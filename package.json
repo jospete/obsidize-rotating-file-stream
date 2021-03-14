@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rotating-file-stream",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A rotating file stream based on the cordova File plugin API",
   "main": "dist/index.es5.js",
   "module": "dist/index.js",
