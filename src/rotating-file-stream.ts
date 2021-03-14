@@ -47,15 +47,6 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 		return entry.getSize() >= this.options.maxSize;
 	}
 
-	protected chooseOptimalTarget(a: EntryType, b: EntryType): EntryType {
-
-		if (a.getLastModificationTime() > b.getLastModificationTime()) {
-			return this.isEntryFull(a) ? b : a;
-		}
-
-		return this.isEntryFull(b) ? a : b;
-	}
-
 	protected async loadTargetEntry(): Promise<EntryType> {
 
 		const entries = await this.refreshAllEntries();
@@ -77,5 +68,26 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 		}
 
 		return files;
+	}
+
+	protected chooseOptimalTarget(a: EntryType, b: EntryType): EntryType {
+
+		// A still has room to append data
+		if (!this.isEntryFull(a)) {
+			return a;
+		}
+
+		// A is full, but B still has room to append data
+		if (!this.isEntryFull(b)) {
+			return b;
+		}
+
+		// Overwrite B when both are full and A was more recently modified (B is older and should be overwritten in rotation)
+		if (a.getLastModificationTime() > b.getLastModificationTime()) {
+			return b;
+		}
+
+		// Both are full and somehow equally old... so default to using A
+		return a;
 	}
 }
