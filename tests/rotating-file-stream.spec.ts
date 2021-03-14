@@ -40,12 +40,12 @@ describe('RotatingFileStream', () => {
 		expect(fileA.toURL()).toBe('cache/logs/debug-a.log');
 		expect(fileB.toURL()).toBe('cache/logs/debug-b.log');
 
-		const readResult = await fileA.read();
-		expect(readResult).toEqual(mockData1);
-
 		// Internal refresh happens before write, so we need to 
 		// refresh again to do proper metadata comparisons.
 		await rfs.refreshAllEntries();
+
+		const readResult = await fileA.read();
+		expect(readResult).toEqual(mockData1);
 
 		// Data of atomic write calls should not be broken apart.
 		expect(fileA.getSize()).toBe(502);

@@ -56,10 +56,12 @@ const bufferFrom = async (value: string | Blob | ArrayBuffer): Promise<ArrayBuff
 	return value;
 };
 
+const getBytes = (buffer: ArrayBuffer): number[] => {
+	return buffer && buffer.byteLength > 0 ? Array.from(new Uint8Array(buffer)) : [];
+};
+
 const bufferConcat = (a: ArrayBuffer, b: ArrayBuffer): ArrayBuffer => {
-	const u1 = Array.from(new Uint8Array(a));
-	const u2 = Array.from(new Uint8Array(b));
-	return Uint8Array.from(u1.concat(u2)).buffer;
+	return Uint8Array.from(getBytes(a).concat(getBytes(b))).buffer;
 };
 
 export class MockCordovaFilePlugin implements CordovaFilePluginLike {

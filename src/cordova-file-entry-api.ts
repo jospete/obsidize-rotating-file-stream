@@ -75,6 +75,12 @@ export class CordovaFileEntryApi implements FileEntryLike {
 		this.targetBaseDirectory = await this.cordovaFile.resolveDirectoryUrl(this.baseCordovaDirectory);
 		this.targetDirectory = await this.cordovaFile.getDirectory(this.targetBaseDirectory, this.directory, { create: true });
 		this.targetFile = await this.cordovaFile.getFile(this.targetDirectory, this.filename, { create: true });
-		this.targetFileMetadata = await (new Promise((resolve, reject) => this.targetFile?.getMetadata(resolve, reject)));
+		this.targetFileMetadata = await (new Promise((resolve, reject) => {
+			if (this.targetFile) {
+				this.targetFile.getMetadata(resolve, reject);
+			} else {
+				reject('file_not_found');
+			}
+		}));
 	}
 }
