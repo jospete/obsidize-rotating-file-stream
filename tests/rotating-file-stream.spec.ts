@@ -25,7 +25,7 @@ describe('RotatingFileStream', () => {
 		const mockCordovaFile = new MockCordovaFilePlugin();
 
 		const files = CordovaFileEntryApi.createCacheRotationFiles(
-			mockCordovaFile, 'logs/', ['debug-a.log', 'debug-b.log']
+			mockCordovaFile, 'logs', ['debug-a.log', 'debug-b.log']
 		);
 
 		const [fileA, fileB] = files;
@@ -36,6 +36,16 @@ describe('RotatingFileStream', () => {
 
 		const mockData1 = generateRandomBuffer(502);
 		await rfs.write(mockData1);
+
+		expect(fileA.toURL()).toBe('cache/logs/debug-a.log');
+		expect(fileB.toURL()).toBe('cache/logs/debug-b.log');
+
+		const readResult = await fileA.read();
+		expect(readResult).toEqual(mockData1);
+
+		// Internal refresh happens before write, so we need to 
+		// refresh again to do proper metadata comparisons.
+		await rfs.refreshAllEntries();
 
 		// Data of atomic write calls should not be broken apart.
 		expect(fileA.getSize()).toBe(502);

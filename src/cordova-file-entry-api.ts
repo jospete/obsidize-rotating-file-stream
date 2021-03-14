@@ -49,23 +49,26 @@ export class CordovaFileEntryApi implements FileEntryLike {
 	}
 
 	public toURL(): string {
-		return this.targetFile?.toURL() ?? '';
+		return this.targetFile ? this.targetFile.toURL() : '';
 	}
 
 	public getSize(): number {
-		return this.targetFileMetadata?.size ?? 0;
+		return this.targetFileMetadata ? this.targetFileMetadata.size : 0;
 	}
 
 	public getLastModificationTime(): number {
-		return new Date(this.targetFileMetadata?.modificationTime ?? 0).getTime();
+		const date = this.targetFileMetadata ? this.targetFileMetadata.modificationTime : new Date();
+		return new Date(date).getTime();
 	}
 
 	public async write(data: ArrayBuffer, overwrite: boolean): Promise<void> {
-		await this.cordovaFile.writeFile(this.directory, this.filename, data, { append: !overwrite, replace: overwrite });
+		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
+		await this.cordovaFile.writeFile(targetDirPath, this.filename, data, { append: !overwrite, replace: overwrite });
 	}
 
 	public async read(): Promise<ArrayBuffer> {
-		return this.cordovaFile.readAsArrayBuffer(this.targetDirectory?.toURL() ?? '', this.filename);
+		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
+		return this.cordovaFile.readAsArrayBuffer(targetDirPath, this.filename);
 	}
 
 	public async refresh(): Promise<void> {

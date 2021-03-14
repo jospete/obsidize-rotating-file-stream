@@ -37,14 +37,25 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 	) {
 	}
 
+	public isEntryFull(entry: EntryType): boolean {
+		return entry.getSize() >= this.options.maxSize;
+	}
+
 	public async write(data: ArrayBuffer): Promise<void> {
 		const entry = await this.loadTargetEntry();
 		const shouldOverwrite = this.isEntryFull(entry);
 		await entry.write(data, shouldOverwrite);
 	}
 
-	protected isEntryFull(entry: EntryType): boolean {
-		return entry.getSize() >= this.options.maxSize;
+	public async refreshAllEntries(): Promise<EntryType[]> {
+
+		const { files } = this.options;
+
+		for (const file of files) {
+			await file.refresh();
+		}
+
+		return files;
 	}
 
 	protected async loadTargetEntry(): Promise<EntryType> {
@@ -57,17 +68,6 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 		}
 
 		return target;
-	}
-
-	protected async refreshAllEntries(): Promise<EntryType[]> {
-
-		const { files } = this.options;
-
-		for (const file of files) {
-			await file.refresh();
-		}
-
-		return files;
 	}
 
 	protected chooseOptimalTarget(a: EntryType, b: EntryType): EntryType {

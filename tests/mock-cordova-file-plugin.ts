@@ -14,7 +14,7 @@ export class MockCordovaFileEntry implements CordovaFileEntryLike {
 	name: string = '';
 	fullPath: string = '';
 	metadata: CordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
-	data: ArrayBuffer;
+	data: ArrayBuffer = null;
 
 	getMetadata(successCallback: (metadata: CordovaFileEntryMetadataLike) => void): void {
 		successCallback(this.metadata);
@@ -76,6 +76,8 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		if (!result) {
 			result = new MockCordovaDirectoryEntry();
 			result.fullPath = directoryUrl;
+			result.metadata.modificationTime = new Date();
+			result.metadata.size = 0;
 			this.dirMap.set(directoryUrl, result);
 		}
 		return result;
@@ -91,6 +93,8 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		if (!result) {
 			result = new MockCordovaFileEntry();
 			result.fullPath = path;
+			result.metadata.modificationTime = new Date();
+			result.metadata.size = 0;
 			this.fileMap.set(path, result);
 		}
 		return result;
