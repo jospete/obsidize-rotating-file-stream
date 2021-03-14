@@ -9,3 +9,5 @@ Note that while the intention of this module is for ionic app file logging, the 
 written in pure typescript with no ionic / angular / cordova dependencies embedded in it.
 
 So theoretically this could be used as middleware for any system that has a file API and can run javascript.
+
+See the [Ionic App Example](https://github.com/jospete/ionic-native-file-logging-example) for working sample code.
