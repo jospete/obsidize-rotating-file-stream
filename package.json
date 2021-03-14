@@ -41,6 +41,9 @@
     "log",
     "logger"
   ],
+  "files": [
+    "dist/**/*"
+  ],
   "author": "Josh Noel <jpnoel618@gmail.com>",
   "license": "MIT",
   "bugs": {
