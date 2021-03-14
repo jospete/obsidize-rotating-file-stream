@@ -10,4 +10,46 @@ written in pure typescript with no ionic / angular / cordova dependencies embedd
 
 So theoretically this could be used as middleware for any system that has a file API and can run javascript.
 
+## Installation
+
+- npm:
+
+```bash
+npm install --save @obsidize/rotating-file-stream
+```
+
+- git:
+
+```bash
+npm install --save git+https://github.com/jospete/obsidize-rotating-file-stream.git
+```
+
+## Usage
+
+1. Create A RotationFileStream instance:
+
+```typescript
+import { RotatingFileStream, CordovaFileEntryApi } from '@obsidize/rotating-file-stream';
+
+// NOTE: CordovaFileEntryApi is used as an example here, but these file entries can come from anywhere
+this.fileStream = new RotatingFileStream({
+	maxSize: 2000000, // 2MB
+	files: CordovaFileEntryApi.createCacheRotationFiles(
+		cdvFile,
+		'logs',
+		['debug-a.log', 'debug-b.log']
+	)
+});
+```
+
+2. Write to the stream:
+
+```typescript
+const buffer = new ArrayBuffer(42);
+this.fileStream.write(buffer).then(...);
+```
+
+Thats it!
+
+
 See the [Ionic App Example](https://github.com/jospete/ionic-native-file-logging-example) for working sample code.
