@@ -64,6 +64,10 @@ export class CordovaFileEntryApi implements FileEntryLike {
 		await this.cordovaFile.writeFile(this.directory, this.filename, data, { append: !overwrite, replace: overwrite });
 	}
 
+	public async read(): Promise<ArrayBuffer> {
+		return this.cordovaFile.readAsArrayBuffer(this.targetDirectory?.toURL() ?? '', this.filename);
+	}
+
 	public async refresh(): Promise<void> {
 		this.targetBaseDirectory = await this.cordovaFile.resolveDirectoryUrl(this.baseCordovaDirectory);
 		this.targetDirectory = await this.cordovaFile.getDirectory(this.targetBaseDirectory, this.directory, { create: true });

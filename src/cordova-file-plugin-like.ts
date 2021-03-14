@@ -39,4 +39,5 @@ export interface CordovaFilePluginLike {
 	getDirectory(directoryEntry: CordovaDirectoryEntryLike, directoryName: string, flags: CordovaFileFlags): Promise<CordovaDirectoryEntryLike>;
 	getFile(directoryEntry: CordovaDirectoryEntryLike, fileName: string, flags: CordovaFileFlags): Promise<CordovaFileEntryLike>;
 	writeFile(path: string, fileName: string, text: string | Blob | ArrayBuffer, options?: CordovaFileWriteOptions): Promise<any>;
+	readAsArrayBuffer(path: string, file: string): Promise<ArrayBuffer>;
 }

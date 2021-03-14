@@ -7,6 +7,7 @@ export interface FileEntryLike {
 	getSize(): number;
 	getLastModificationTime(): number;
 	refresh(): Promise<void>;
+	read(): Promise<ArrayBuffer>;
 	write(data: ArrayBuffer, overwrite: boolean): Promise<void>;
 }
 

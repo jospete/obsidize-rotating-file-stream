@@ -65,6 +65,10 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		return result;
 	}
 
+	public async readAsArrayBuffer(path: string, fileName: string): Promise<ArrayBuffer> {
+		return null;
+	}
+
 	public async writeFile(path: string, fileName: string, text: string | Blob | ArrayBuffer, options?: CordovaFileWriteOptions): Promise<any> {
 		return true;
 	}
