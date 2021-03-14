@@ -57,30 +57,23 @@ export class CordovaFileEntryApi implements FileEntryLike {
 	}
 
 	public getLastModificationTime(): number {
-		const date = this.targetFileMetadata ? this.targetFileMetadata.modificationTime : new Date();
-		return new Date(date).getTime();
+		return this.targetFileMetadata ? new Date(this.targetFileMetadata.modificationTime).getTime() : 0;
 	}
 
 	public async write(data: ArrayBuffer, overwrite: boolean): Promise<void> {
-		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
-		await this.cordovaFile.writeFile(targetDirPath, this.fileName, data, { append: !overwrite, replace: overwrite });
+		if (!this.targetDirectory) await this.refresh();
+		await this.cordovaFile.writeFile(this.targetDirectory!.toURL(), this.fileName, data, { append: !overwrite, replace: overwrite });
 	}
 
 	public async read(): Promise<ArrayBuffer> {
-		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
-		return this.cordovaFile.readAsArrayBuffer(targetDirPath, this.fileName);
+		if (!this.targetDirectory) await this.refresh();
+		return this.cordovaFile.readAsArrayBuffer(this.targetDirectory!.toURL(), this.fileName);
 	}
 
 	public async refresh(): Promise<void> {
 		this.targetBaseDirectory = await this.cordovaFile.resolveDirectoryUrl(this.baseCordovaDirectoryName);
 		this.targetDirectory = await this.cordovaFile.getDirectory(this.targetBaseDirectory, this.directoryName, { create: true });
 		this.targetFile = await this.cordovaFile.getFile(this.targetDirectory, this.fileName, { create: true });
-		this.targetFileMetadata = await (new Promise((resolve, reject) => {
-			if (this.targetFile) {
-				this.targetFile.getMetadata(resolve, reject);
-			} else {
-				reject('file_not_found');
-			}
-		}));
+		this.targetFileMetadata = await (new Promise((resolve, reject) => this.targetFile!.getMetadata(resolve, reject)));
 	}
 }

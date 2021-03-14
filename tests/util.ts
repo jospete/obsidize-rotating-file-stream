@@ -43,3 +43,7 @@ export const bufferConcat = (a: ArrayBuffer, b: ArrayBuffer): ArrayBuffer => {
 	const bytes = getBytes(a).concat(getBytes(b)).filter(v => typeof v === 'number');
 	return Uint8Array.from(bytes).buffer;
 };
+
+export const sleep = (ms: number): Promise<void> => {
+	return new Promise(resolve => setTimeout(resolve, ms));
+};
