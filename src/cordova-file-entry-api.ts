@@ -15,9 +15,9 @@ export class CordovaFileEntryApi implements FileEntryLike {
 
 	constructor(
 		protected readonly cordovaFile: CordovaFilePluginLike,
-		protected readonly baseCordovaDirectory: string,
-		protected readonly directory: string,
-		protected readonly filename: string
+		protected readonly baseCordovaDirectoryName: string,
+		protected readonly directoryName: string,
+		protected readonly fileName: string
 	) {
 	}
 
@@ -63,18 +63,18 @@ export class CordovaFileEntryApi implements FileEntryLike {
 
 	public async write(data: ArrayBuffer, overwrite: boolean): Promise<void> {
 		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
-		await this.cordovaFile.writeFile(targetDirPath, this.filename, data, { append: !overwrite, replace: overwrite });
+		await this.cordovaFile.writeFile(targetDirPath, this.fileName, data, { append: !overwrite, replace: overwrite });
 	}
 
 	public async read(): Promise<ArrayBuffer> {
 		const targetDirPath = this.targetDirectory ? this.targetDirectory.toURL() : '';
-		return this.cordovaFile.readAsArrayBuffer(targetDirPath, this.filename);
+		return this.cordovaFile.readAsArrayBuffer(targetDirPath, this.fileName);
 	}
 
 	public async refresh(): Promise<void> {
-		this.targetBaseDirectory = await this.cordovaFile.resolveDirectoryUrl(this.baseCordovaDirectory);
-		this.targetDirectory = await this.cordovaFile.getDirectory(this.targetBaseDirectory, this.directory, { create: true });
-		this.targetFile = await this.cordovaFile.getFile(this.targetDirectory, this.filename, { create: true });
+		this.targetBaseDirectory = await this.cordovaFile.resolveDirectoryUrl(this.baseCordovaDirectoryName);
+		this.targetDirectory = await this.cordovaFile.getDirectory(this.targetBaseDirectory, this.directoryName, { create: true });
+		this.targetFile = await this.cordovaFile.getFile(this.targetDirectory, this.fileName, { create: true });
 		this.targetFileMetadata = await (new Promise((resolve, reject) => {
 			if (this.targetFile) {
 				this.targetFile.getMetadata(resolve, reject);

@@ -17,7 +17,7 @@ export class MockCordovaFileEntry implements CordovaFileEntryLike {
 	data: ArrayBuffer = null;
 
 	getMetadata(successCallback: (metadata: CordovaFileEntryMetadataLike) => void): void {
-		successCallback(this.metadata);
+		setTimeout(() => successCallback(this.metadata), 0);
 	}
 
 	toURL(): string {
@@ -34,7 +34,7 @@ export class MockCordovaDirectoryEntry implements CordovaDirectoryEntryLike {
 	metadata: CordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
 
 	getMetadata(successCallback: (metadata: CordovaFileEntryMetadataLike) => void): void {
-		successCallback(this.metadata);
+		setTimeout(() => successCallback(this.metadata), 0);
 	}
 
 	toURL(): string {
@@ -57,11 +57,16 @@ const bufferFrom = async (value: string | Blob | ArrayBuffer): Promise<ArrayBuff
 };
 
 const getBytes = (buffer: ArrayBuffer): number[] => {
-	return buffer && buffer.byteLength > 0 ? Array.from(new Uint8Array(buffer)) : [];
+	return buffer
+		&& buffer instanceof ArrayBuffer
+		&& buffer.byteLength > 0
+		? Array.from(new Uint8Array(buffer))
+		: [];
 };
 
 const bufferConcat = (a: ArrayBuffer, b: ArrayBuffer): ArrayBuffer => {
-	return Uint8Array.from(getBytes(a).concat(getBytes(b))).buffer;
+	const bytes = getBytes(a).concat(getBytes(b)).filter(v => typeof v === 'number');
+	return Uint8Array.from(bytes).buffer;
 };
 
 export class MockCordovaFilePlugin implements CordovaFilePluginLike {
@@ -74,7 +79,9 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 	readonly fileMap: Map<string, MockCordovaFileEntry> = new Map();
 
 	public async resolveDirectoryUrl(directoryUrl: string): Promise<CordovaDirectoryEntryLike> {
+
 		let result = this.dirMap.get(directoryUrl);
+
 		if (!result) {
 			result = new MockCordovaDirectoryEntry();
 			result.fullPath = directoryUrl;
@@ -82,16 +89,15 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 			result.metadata.size = 0;
 			this.dirMap.set(directoryUrl, result);
 		}
+
 		return result;
 	}
 
-	public async getDirectory(directoryEntry: CordovaDirectoryEntryLike, directoryName: string, flags: CordovaFileFlags): Promise<CordovaDirectoryEntryLike> {
-		return this.resolveDirectoryUrl(directoryEntry.fullPath + '/' + directoryName);
-	}
-
 	public async getFile(directoryEntry: CordovaDirectoryEntryLike, fileName: string, flags: CordovaFileFlags): Promise<CordovaFileEntryLike> {
+
 		const path = directoryEntry.fullPath + '/' + fileName;
 		let result = this.fileMap.get(path);
+
 		if (!result) {
 			result = new MockCordovaFileEntry();
 			result.fullPath = path;
@@ -99,7 +105,12 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 			result.metadata.size = 0;
 			this.fileMap.set(path, result);
 		}
+
 		return result;
+	}
+
+	public async getDirectory(directoryEntry: CordovaDirectoryEntryLike, directoryName: string, flags: CordovaFileFlags): Promise<CordovaDirectoryEntryLike> {
+		return this.resolveDirectoryUrl(directoryEntry.fullPath + '/' + directoryName);
 	}
 
 	private async getFileEntry(path: string, fileName: string): Promise<MockCordovaFileEntry> {
