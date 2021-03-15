@@ -36,7 +36,7 @@ import { RotatingFileStream, CordovaFileEntryApi } from '@obsidize/rotating-file
 const fileStream = new RotatingFileStream({
 	maxSize: 2000000, // 2MB
 	files: CordovaFileEntryApi.createCacheRotationFiles(
-		cdvFile,
+		cdvFile, // @ionic-native/file reference
 		'logs',
 		['debug-a.log', 'debug-b.log']
 	)
