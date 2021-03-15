@@ -31,8 +31,9 @@ npm install --save git+https://github.com/jospete/obsidize-rotating-file-stream.
 ```typescript
 import { RotatingFileStream, CordovaFileEntryApi } from '@obsidize/rotating-file-stream';
 
-// NOTE: CordovaFileEntryApi is used as an example here, but these file entries can come from anywhere
-this.fileStream = new RotatingFileStream({
+// NOTE: While CordovaFileEntryApi is used as an example here, 
+// the 'files' option can be an array of anything that implements the FileEntryLike interface.
+const fileStream = new RotatingFileStream({
 	maxSize: 2000000, // 2MB
 	files: CordovaFileEntryApi.createCacheRotationFiles(
 		cdvFile,
@@ -46,7 +47,7 @@ this.fileStream = new RotatingFileStream({
 
 ```typescript
 const buffer = new ArrayBuffer(42);
-this.fileStream.write(buffer).then(...);
+fileStream.write(buffer).then(...);
 ```
 
 Thats it!
