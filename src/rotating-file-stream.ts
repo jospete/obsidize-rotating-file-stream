@@ -3,11 +3,43 @@
  * and determine when to rotate files.
  */
 export interface FileEntryLike {
+
+	/**
+	 * Absolute path to the entry, typically a native file system URI.
+	 */
 	toURL(): string;
+
+	/**
+	 * The current size in bytes of this entry.
+	 * Used to determine if the stream needs to rotate to a new entry.
+	 */
 	getSize(): number;
+
+	/**
+	 * The last time this entry was edited.
+	 * This is used to determine which files are the oldest when
+	 * a rotation happens and all files are full.
+	 */
 	getLastModificationTime(): number;
+
+	/**
+	 * Called when the entry should refresh its metadata,
+	 * including size and last modification time.
+	 */
 	refresh(): Promise<void>;
+
+	/**
+	 * Option to read the entire entry contents from disk.
+	 * Not actively used in the process, but a nice-to-have when
+	 * interfacing with entries.
+	 */
 	read(): Promise<ArrayBuffer>;
+
+	/**
+	 * Called when the entry is being overwritten or appened to.
+	 * @param data - the buffer to write to disk
+	 * @param overwrite - if this write should erase existing data
+	 */
 	write(data: ArrayBuffer, overwrite: boolean): Promise<void>;
 }
 
