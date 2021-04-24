@@ -1,7 +1,6 @@
 import { CordovaDirectoryEntryLike, CordovaFileEntryLike, CordovaFileEntryMetadataLike, CordovaFilePluginLike } from './cordova-file-plugin-like';
 import { FileEntryLike } from './rotating-file-stream';
-
-export type Nullable<T> = T | null;
+import { Nullable } from './util';
 
 /**
  * Represents a single file entry from the cordova file plugin system.

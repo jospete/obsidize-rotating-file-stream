@@ -10,6 +10,8 @@ written in pure typescript with no ionic / angular / cordova dependencies embedd
 
 So theoretically this could be used as middleware for any system that has a file API and can run javascript.
 
+If you need a pure NodeJS implementation, use [rotating-file-stream](https://www.npmjs.com/package/rotating-file-stream) instead.
+
 ## Installation
 
 - npm:
