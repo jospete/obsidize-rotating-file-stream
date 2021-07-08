@@ -40,7 +40,7 @@
     "log",
     "logger"
   ],
-  "author": "Josh Noel <jpnoel618@gmail.com>",
+  "author": "Josh Noel <obsidize@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jospete/obsidize-rotating-file-stream/issues"
