@@ -21,10 +21,12 @@
     "copy:assets": "run-p copy:package copy:readme",
     "git:publish": "node ./scripts/release-publish.js",
     "release:prepare": "node ./scripts/release-prepare.js",
-    "release:test": "run-s rebuild coverage",
+    "release:test": "run-s rebuild coverage docs",
     "release:publish": "run-s git:publish",
     "release:prepare:patch": "npm run release:prepare -- --release-as patch",
-    "bump": "run-s release:prepare:patch release:test release:publish"
+    "bump": "run-s release:prepare:patch release:test release:publish",
+    "docs": "typedoc ./src/index.ts --out ./docs",
+    "docs:open": "open-cli \".\\docs\\index.html\""
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,9 @@
     "url": "https://github.com/jospete/obsidize-rotating-file-stream/issues"
   },
   "homepage": "https://github.com/jospete/obsidize-rotating-file-stream#readme",
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
   "devDependencies": {
     "@ionic-native/core": "~5.31.1",
     "@ionic-native/file": "~5.31.1",
@@ -64,7 +69,8 @@
     "open-cli": "~6.0.1",
     "rimraf": "~3.0.2",
     "ts-loader": "~8.0.18",
-    "typescript": "~4.1.5",
+    "typedoc": "0.21.4",
+    "typescript": "4.1.6",
     "webpack": "~5.25.0",
     "webpack-cli": "~4.5.0",
     "yargs": "~16.2.0"

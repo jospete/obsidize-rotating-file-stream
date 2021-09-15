@@ -56,3 +56,7 @@ Thats it!
 
 
 See the [Ionic App Example](https://github.com/jospete/ionic-native-file-logging-example) for working sample code.
+
+## API
+
+Source documentation can be found [here](https://jospete.github.io/obsidize-rotating-file-stream/)

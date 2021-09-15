@@ -6,6 +6,7 @@ import {
 	CordovaFilePluginLike,
 	CordovaFileWriteOptions
 } from '../src';
+
 import { bufferFrom, bufferConcat } from './util';
 
 export class MockCordovaFileEntry implements CordovaFileEntryLike {
