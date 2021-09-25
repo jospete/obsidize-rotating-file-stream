@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rotating-file-stream",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A rotating file stream based on the cordova File plugin API",
   "main": "es5.js",
   "module": "index.js",
@@ -26,7 +26,7 @@
     "release:publish": "run-s git:publish dist:publish",
     "release:prepare:patch": "npm run release:prepare -- --release-as patch",
     "bump": "run-s release:prepare:patch release:test release:publish",
-    "docs": "typedoc ./src/index.ts --out ./docs",
+    "docs": "typedoc ./src/index.ts --out ./docs --excludePrivate",
     "docs:open": "open-cli \".\\docs\\index.html\""
   },
   "repository": {
