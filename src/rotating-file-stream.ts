@@ -48,7 +48,7 @@ export interface FileEntryLike {
  */
 export interface RotatingFileStreamOptions<EntryType extends FileEntryLike> {
 	files: EntryType[];
-	maxSize: number;
+	maxFileSize: number;
 }
 
 /**
@@ -70,7 +70,7 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 	}
 
 	public isEntryFull(entry: EntryType): boolean {
-		return entry.getSize() >= this.options.maxSize;
+		return entry.getSize() >= this.options.maxFileSize;
 	}
 
 	public async write(data: ArrayBuffer): Promise<void> {

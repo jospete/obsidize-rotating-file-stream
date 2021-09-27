@@ -29,6 +29,11 @@ export interface CordovaFileEntryLike extends CordovaEntryLike {
 export interface CordovaDirectoryEntryLike extends CordovaEntryLike {
 }
 
+/**
+ * Partial interface mask needed to integrate with the 
+ * [@ionic-native/file](https://www.npmjs.com/package/@ionic-native/file) 
+ * module.
+ */
 export interface CordovaFilePluginLike {
 
 	cacheDirectory: string;

@@ -1,4 +1,5 @@
 export { CordovaFileEntryApi } from './cordova-file-entry-api';
+
 export {
 	CordovaDirectoryEntryLike,
 	CordovaEntryLike,
@@ -8,5 +9,11 @@ export {
 	CordovaFilePluginLike,
 	CordovaFileWriteOptions
 } from './cordova-file-plugin-like';
-export { FileEntryLike, RotatingFileStream, RotatingFileStreamOptions } from './rotating-file-stream';
-export { Nullable, NodeCallback, promisifyNodeCallback } from './util';
+
+export {
+	FileEntryLike,
+	RotatingFileStream,
+	RotatingFileStreamOptions
+} from './rotating-file-stream';
+
+export { Nullable } from './util';
