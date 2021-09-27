@@ -1,4 +1,10 @@
-import { CordovaDirectoryEntryLike, CordovaFileEntryLike, CordovaFileEntryMetadataLike, CordovaFilePluginLike } from './cordova-file-plugin-like';
+import {
+	CordovaDirectoryEntryLike,
+	CordovaFileEntryLike,
+	CordovaFileEntryMetadataLike,
+	CordovaFilePluginLike
+} from './cordova-file-plugin-like';
+
 import { FileEntryLike } from './rotating-file-stream';
 import { Nullable } from './util';
 
@@ -39,7 +45,7 @@ export class CordovaFileEntryApi implements FileEntryLike {
 		directory: string,
 		filenames: string[]
 	): CordovaFileEntryApi[] {
-		return filenames.map(filename => new CordovaFileEntryApi(
+		return Array.from(filenames).map(filename => new CordovaFileEntryApi(
 			cordovaFile,
 			baseDirectoryDelegate,
 			directory,

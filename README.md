@@ -36,7 +36,7 @@ import { RotatingFileStream, CordovaFileEntryApi } from '@obsidize/rotating-file
 // NOTE: While CordovaFileEntryApi is used as an example here, 
 // the 'files' option can be an array of anything that implements the FileEntryLike interface.
 const fileStream = new RotatingFileStream({
-	maxSize: 2000000, // 2MB
+	maxFileSize: 2000000, // 2MB
 	files: CordovaFileEntryApi.createCacheRotationFiles(
 		cdvFile, // @ionic-native/file reference
 		'logs',

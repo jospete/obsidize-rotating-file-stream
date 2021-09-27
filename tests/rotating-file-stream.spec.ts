@@ -6,13 +6,13 @@ import { dumpHexBuffer, generateRandomBuffer, sleep } from './util';
 describe('RotatingFileStream', () => {
 
 	it('can be created', () => {
-		const stream = new RotatingFileStream({ files: [], maxSize: 500000 });
+		const stream = new RotatingFileStream({ files: [], maxFileSize: 500000 });
 		expect(stream).toBeTruthy();
 	});
 
 	it('rotates between a given set of file entries when data is streamed to it', async () => {
 
-		const maxSize = 500;
+		const maxFileSize = 500;
 		const mockCordovaFile = new MockCordovaFilePlugin();
 
 		const files = CordovaFileEntryApi.createCacheRotationFiles(
@@ -22,7 +22,7 @@ describe('RotatingFileStream', () => {
 		const [fileA, fileB] = files;
 
 		const rfs = new RotatingFileStream({
-			files, maxSize
+			files, maxFileSize
 		});
 
 		const mockData1 = generateRandomBuffer(502);
@@ -51,7 +51,7 @@ describe('RotatingFileStream', () => {
 
 	it('rotates back to the oldest file when all files are full', async () => {
 
-		const maxSize = 500;
+		const maxFileSize = 500;
 		const mockCordovaFile = new MockCordovaFilePlugin();
 
 		const files = CordovaFileEntryApi.createCacheRotationFiles(
@@ -66,7 +66,7 @@ describe('RotatingFileStream', () => {
 		expect(fileA.getSize()).toBe(0);
 
 		const rfs = new RotatingFileStream({
-			files, maxSize
+			files, maxFileSize
 		});
 
 		const mockData = generateRandomBuffer(250);
