@@ -69,10 +69,6 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 	) {
 	}
 
-	public isEntryFull(entry: EntryType): boolean {
-		return entry.getSize() >= this.options.maxFileSize;
-	}
-
 	public async write(data: ArrayBuffer): Promise<void> {
 		const entry = await this.loadTargetEntry();
 		const shouldOverwrite = this.isEntryFull(entry);
@@ -88,6 +84,10 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 		}
 
 		return files;
+	}
+
+	protected isEntryFull(entry: EntryType): boolean {
+		return entry.getSize() >= this.options.maxFileSize;
 	}
 
 	protected async loadTargetEntry(): Promise<EntryType> {
@@ -114,7 +114,8 @@ export class RotatingFileStream<EntryType extends FileEntryLike> {
 			return b;
 		}
 
-		// Overwrite B when both are full and A was more recently modified (B is older and should be overwritten in rotation)
+		// Overwrite B when both are full and A was more recently modified 
+		// (B is older and should be overwritten in rotation)
 		if (a.getLastModificationTime() > b.getLastModificationTime()) {
 			return b;
 		}

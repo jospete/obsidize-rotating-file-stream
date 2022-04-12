@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/rotating-file-stream",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A rotating file stream based on the cordova File plugin API",
   "main": "es5.js",
   "module": "index.js",
@@ -14,20 +14,20 @@
     "build": "run-s build:tsc build:webpack copy:assets",
     "clean": "rimraf ./dist ./coverage",
     "rebuild": "run-s clean build",
-    "coverage:open": "open-cli \".\\coverage\\*\\html\\index.html\"",
+    "coverage:open": "open ./coverage/*/html/index.html",
     "coverage": "run-s test:single coverage:open",
     "copy:package": "cpy ./package.json ./dist/",
     "copy:readme": "cpy ./README.md ./dist/",
     "copy:assets": "run-p copy:package copy:readme",
     "git:publish": "node ./scripts/release-publish.js",
-    "dist:publish": "npm publish dist",
-    "release:prepare": "node ./scripts/release-prepare.js",
-    "release:test": "run-s rebuild coverage docs",
-    "release:publish": "run-s git:publish dist:publish",
-    "release:prepare:patch": "npm run release:prepare -- --release-as patch",
-    "bump": "run-s release:prepare:patch release:test release:publish",
+    "dist:publish": "npm publish ./dist",
+    "dist:bundle": "run-s rebuild coverage docs",
+    "version": "npm run dist:bundle",
+    "version:publish": "run-s git:publish dist:publish",
+    "release:prepare:patch": "npm version patch",
+    "bump": "run-s release:prepare:patch version:publish",
     "docs": "typedoc ./src/index.ts --out ./docs --excludePrivate",
-    "docs:open": "open-cli \".\\docs\\index.html\""
+    "docs:open": "open ./docs/index.html"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@capacitor/filesystem": "1.1.0",
     "@ionic-native/core": "~5.31.1",
     "@ionic-native/file": "~5.31.1",
     "@types/jasmine": "~3.6.3",
