@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CordovaFileWriteOptions | @obsidize/rotating-file-stream</title>
+	<title>RFSWriteFileOptions | @obsidize/rotating-file-stream</title>
 	<meta name="description" content="Documentation for @obsidize/rotating-file-stream">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">@obsidize/rotating-file-stream</a>
 				</li>
 				<li>
-					<a href="CordovaFileWriteOptions.html">CordovaFileWriteOptions</a>
+					<a href="RFSWriteFileOptions.html">RFSWriteFileOptions</a>
 				</li>
 			</ul>
-			<h1>Interface CordovaFileWriteOptions</h1>
+			<h1>Interface RFSWriteFileOptions</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CordovaFileWriteOptions</span>
+						<span class="target">RFSWriteFileOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -80,9 +80,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CordovaFileWriteOptions.html#append" class="tsd-kind-icon">append</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CordovaFileWriteOptions.html#replace" class="tsd-kind-icon">replace</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CordovaFileWriteOptions.html#truncate" class="tsd-kind-icon">truncate</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="RFSWriteFileOptions.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="RFSWriteFileOptions.html#directory" class="tsd-kind-icon">directory</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="RFSWriteFileOptions.html#encoding" class="tsd-kind-icon">encoding</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="RFSWriteFileOptions.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="RFSWriteFileOptions.html#recursive" class="tsd-kind-icon">recursive</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,32 +93,52 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="append" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> append</h3>
-					<div class="tsd-signature tsd-kind-icon">append<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="data" class="tsd-anchor"></a>
+					<h3>data</h3>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/ec6128f/src/cordova-file-plugin-like.ts#L8">cordova-file-plugin-like.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/2af48a9/src/capacitor/capacitor-file-plugin-like.ts#L26">capacitor/capacitor-file-plugin-like.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="replace" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> replace</h3>
-					<div class="tsd-signature tsd-kind-icon">replace<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="directory" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> directory</h3>
+					<div class="tsd-signature tsd-kind-icon">directory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/ec6128f/src/cordova-file-plugin-like.ts#L7">cordova-file-plugin-like.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/2af48a9/src/capacitor/capacitor-file-plugin-like.ts#L27">capacitor/capacitor-file-plugin-like.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="truncate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> truncate</h3>
-					<div class="tsd-signature tsd-kind-icon">truncate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="encoding" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> encoding</h3>
+					<div class="tsd-signature tsd-kind-icon">encoding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/ec6128f/src/cordova-file-plugin-like.ts#L9">cordova-file-plugin-like.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/2af48a9/src/capacitor/capacitor-file-plugin-like.ts#L28">capacitor/capacitor-file-plugin-like.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/2af48a9/src/capacitor/capacitor-file-plugin-like.ts#L25">capacitor/capacitor-file-plugin-like.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="recursive" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> recursive</h3>
+					<div class="tsd-signature tsd-kind-icon">recursive<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-rotating-file-stream/blob/2af48a9/src/capacitor/capacitor-file-plugin-like.ts#L29">capacitor/capacitor-file-plugin-like.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -133,55 +155,85 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
+						<a href="../classes/CapacitorFileEntryApi.html" class="tsd-kind-icon">Capacitor<wbr>File<wbr>Entry<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="../classes/CordovaFileEntryApi.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Entry<wbr>Api</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/RotatingFileStream.html" class="tsd-kind-icon">Rotating<wbr>File<wbr>Stream</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="CordovaDirectoryEntryLike.html" class="tsd-kind-icon">Cordova<wbr>Directory<wbr>Entry<wbr>Like</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="CordovaEntryLike.html" class="tsd-kind-icon">Cordova<wbr>Entry<wbr>Like</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="CordovaFileEntryLike.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Entry<wbr>Like</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="CordovaFileEntryMetadataLike.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Entry<wbr>Metadata<wbr>Like</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="CordovaFileFlags.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Flags</a>
+						<a href="CapacitorFilePluginLike.html" class="tsd-kind-icon">Capacitor<wbr>File<wbr>Plugin<wbr>Like</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="CordovaFilePluginLike.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Plugin<wbr>Like</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="FileEntryLike.html" class="tsd-kind-icon">File<wbr>Entry<wbr>Like</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSAppendFileOptions.html" class="tsd-kind-icon">RFSAppend<wbr>File<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaDirectoryEntryLike.html" class="tsd-kind-icon">RFSCordova<wbr>Directory<wbr>Entry<wbr>Like</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaEntryLike.html" class="tsd-kind-icon">RFSCordova<wbr>Entry<wbr>Like</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaFileEntryLike.html" class="tsd-kind-icon">RFSCordova<wbr>File<wbr>Entry<wbr>Like</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaFileEntryMetadataLike.html" class="tsd-kind-icon">RFSCordova<wbr>File<wbr>Entry<wbr>Metadata<wbr>Like</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaFileFlags.html" class="tsd-kind-icon">RFSCordova<wbr>File<wbr>Flags</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSCordovaFileWriteOptions.html" class="tsd-kind-icon">RFSCordova<wbr>File<wbr>Write<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSReadFileOptions.html" class="tsd-kind-icon">RFSRead<wbr>File<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSReadFileResult.html" class="tsd-kind-icon">RFSRead<wbr>File<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSStatOptions.html" class="tsd-kind-icon">RFSStat<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="RFSStatResult.html" class="tsd-kind-icon">RFSStat<wbr>Result</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="CordovaFileWriteOptions.html" class="tsd-kind-icon">Cordova<wbr>File<wbr>Write<wbr>Options</a>
+						<a href="RFSWriteFileOptions.html" class="tsd-kind-icon">RFSWrite<wbr>File<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="CordovaFileWriteOptions.html#append" class="tsd-kind-icon">append</a>
+								<a href="RFSWriteFileOptions.html#data" class="tsd-kind-icon">data</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="CordovaFileWriteOptions.html#replace" class="tsd-kind-icon">replace</a>
+								<a href="RFSWriteFileOptions.html#directory" class="tsd-kind-icon">directory</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="CordovaFileWriteOptions.html#truncate" class="tsd-kind-icon">truncate</a>
+								<a href="RFSWriteFileOptions.html#encoding" class="tsd-kind-icon">encoding</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="RFSWriteFileOptions.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="RFSWriteFileOptions.html#recursive" class="tsd-kind-icon">recursive</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface">
-						<a href="FileEntryLike.html" class="tsd-kind-icon">File<wbr>Entry<wbr>Like</a>
+						<a href="RFSWriteFileResult.html" class="tsd-kind-icon">RFSWrite<wbr>File<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="RotatingFileStreamOptions.html" class="tsd-kind-icon">Rotating<wbr>File<wbr>Stream<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../modules.html#Nullable" class="tsd-kind-icon">Nullable</a>
 					</li>
 				</ul>
 			</nav>

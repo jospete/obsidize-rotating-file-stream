@@ -20,25 +20,27 @@ If you need a pure NodeJS implementation, use [rotating-file-stream](https://www
 npm install --save @obsidize/rotating-file-stream
 ```
 
-- git:
-
-```bash
-npm install --save git+https://github.com/jospete/obsidize-rotating-file-stream.git
-```
-
 ## Usage
 
 1. Create A RotationFileStream instance:
 
 ```typescript
-import { RotatingFileStream, CordovaFileEntryApi } from '@obsidize/rotating-file-stream';
+import { RotatingFileStream, CordovaFileEntryApi, CapacitorFileEntryApi } from '@obsidize/rotating-file-stream';
 
-// NOTE: While CordovaFileEntryApi is used as an example here, 
-// the 'files' option can be an array of anything that implements the FileEntryLike interface.
 const fileStream = new RotatingFileStream({
-	maxFileSize: 2000000, // 2MB
+	maxFileSize: 2e6, // 2MB
 	files: CordovaFileEntryApi.createCacheRotationFiles(
-		cdvFile, // @ionic-native/file reference
+		cdvFile, // @awesome-cordova-plugins/file reference
+		'logs',
+		['debug-a.log', 'debug-b.log']
+	)
+});
+
+// Or if you want to use @capacitor/filesystem
+const fileStream = new RotatingFileStream({
+	maxFileSize: 2e6, // 2MB
+	files: CapacitorFileEntryApi.createCacheRotationFiles(
+		Filesystem, // @capacitor/filesystem reference
 		'logs',
 		['debug-a.log', 'debug-b.log']
 	)
