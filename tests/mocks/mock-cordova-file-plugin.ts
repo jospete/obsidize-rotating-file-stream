@@ -1,24 +1,24 @@
 import {
-	CordovaDirectoryEntryLike,
-	CordovaFileEntryLike,
-	CordovaFileEntryMetadataLike,
-	CordovaFileFlags,
 	CordovaFilePluginLike,
-	CordovaFileWriteOptions
-} from '../src';
+	RFSCordovaDirectoryEntryLike,
+	RFSCordovaFileEntryLike,
+	RFSCordovaFileEntryMetadataLike,
+	RFSCordovaFileFlags,
+	RFSCordovaFileWriteOptions
+} from '../../src';
 
-import { bufferFrom, bufferConcat } from './util';
+import { bufferFrom, bufferConcat } from '../util';
 
-export class MockCordovaFileEntry implements CordovaFileEntryLike {
+export class MockCordovaFileEntry implements RFSCordovaFileEntryLike {
 
 	isFile: boolean = true;
 	isDirectory: boolean = false;
 	name: string = '';
 	fullPath: string = '';
-	metadata: CordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
+	metadata: RFSCordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
 	data: ArrayBuffer = null;
 
-	getMetadata(successCallback: (metadata: CordovaFileEntryMetadataLike) => void): void {
+	getMetadata(successCallback: (metadata: RFSCordovaFileEntryMetadataLike) => void): void {
 		setTimeout(() => successCallback(this.metadata), 0);
 	}
 
@@ -27,15 +27,15 @@ export class MockCordovaFileEntry implements CordovaFileEntryLike {
 	}
 }
 
-export class MockCordovaDirectoryEntry implements CordovaDirectoryEntryLike {
+export class MockCordovaDirectoryEntry implements RFSCordovaDirectoryEntryLike {
 
 	isFile: boolean = false;
 	isDirectory: boolean = true;
 	name: string = '';
 	fullPath: string = '';
-	metadata: CordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
+	metadata: RFSCordovaFileEntryMetadataLike = { modificationTime: new Date(), size: 0 };
 
-	getMetadata(successCallback: (metadata: CordovaFileEntryMetadataLike) => void): void {
+	getMetadata(successCallback: (metadata: RFSCordovaFileEntryMetadataLike) => void): void {
 		setTimeout(() => successCallback(this.metadata), 0);
 	}
 
@@ -53,7 +53,7 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 	readonly dirMap: Map<string, MockCordovaDirectoryEntry> = new Map();
 	readonly fileMap: Map<string, MockCordovaFileEntry> = new Map();
 
-	public async resolveDirectoryUrl(directoryUrl: string): Promise<CordovaDirectoryEntryLike> {
+	public async resolveDirectoryUrl(directoryUrl: string): Promise<RFSCordovaDirectoryEntryLike> {
 
 		let result = this.dirMap.get(directoryUrl);
 
@@ -68,7 +68,7 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		return result;
 	}
 
-	public async getFile(directoryEntry: CordovaDirectoryEntryLike, fileName: string, flags: CordovaFileFlags): Promise<CordovaFileEntryLike> {
+	public async getFile(directoryEntry: RFSCordovaDirectoryEntryLike, fileName: string, flags: RFSCordovaFileFlags): Promise<RFSCordovaFileEntryLike> {
 
 		const path = directoryEntry.fullPath + '/' + fileName;
 		let result = this.fileMap.get(path);
@@ -84,7 +84,11 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		return result;
 	}
 
-	public async getDirectory(directoryEntry: CordovaDirectoryEntryLike, directoryName: string, flags: CordovaFileFlags): Promise<CordovaDirectoryEntryLike> {
+	public async getDirectory(
+		directoryEntry: RFSCordovaDirectoryEntryLike, 
+		directoryName: string, 
+		_flags: RFSCordovaFileFlags
+	): Promise<RFSCordovaDirectoryEntryLike> {
 		return this.resolveDirectoryUrl(directoryEntry.fullPath + '/' + directoryName);
 	}
 
@@ -99,7 +103,12 @@ export class MockCordovaFilePlugin implements CordovaFilePluginLike {
 		return file.data;
 	}
 
-	public async writeFile(path: string, fileName: string, text: string | Blob | ArrayBuffer, options?: CordovaFileWriteOptions): Promise<any> {
+	public async writeFile(
+		path: string, 
+		fileName: string, 
+		text: string | Blob | ArrayBuffer, 
+		options?: RFSCordovaFileWriteOptions
+	): Promise<any> {
 		const file = await this.getFileEntry(path, fileName);
 		const data = await bufferFrom(text);
 		file.data = (options && options.append && !options.replace) ? bufferConcat(file.data, data) : data;

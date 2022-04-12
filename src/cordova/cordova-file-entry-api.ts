@@ -1,22 +1,21 @@
+import { FileEntryLike } from '../core/rotating-file-stream';
+
 import {
-	CordovaDirectoryEntryLike,
-	CordovaFileEntryLike,
-	CordovaFileEntryMetadataLike,
+	RFSCordovaDirectoryEntryLike,
+	RFSCordovaFileEntryLike,
+	RFSCordovaFileEntryMetadataLike,
 	CordovaFilePluginLike
 } from './cordova-file-plugin-like';
-
-import { FileEntryLike } from './rotating-file-stream';
-import { Nullable } from './util';
 
 /**
  * Represents a single file entry from the cordova file plugin system.
  */
 export class CordovaFileEntryApi implements FileEntryLike {
 
-	protected targetBaseDirectory: Nullable<CordovaDirectoryEntryLike> = null;
-	protected targetDirectory: Nullable<CordovaDirectoryEntryLike> = null;
-	protected targetFile: Nullable<CordovaFileEntryLike> = null;
-	protected targetFileMetadata: Nullable<CordovaFileEntryMetadataLike> = null;
+	protected targetBaseDirectory: RFSCordovaDirectoryEntryLike | null = null;
+	protected targetDirectory: RFSCordovaDirectoryEntryLike | null = null;
+	protected targetFile: RFSCordovaFileEntryLike | null = null;
+	protected targetFileMetadata: RFSCordovaFileEntryMetadataLike | null = null;
 
 	constructor(
 		protected readonly cordovaFile: CordovaFilePluginLike,
@@ -45,7 +44,7 @@ export class CordovaFileEntryApi implements FileEntryLike {
 		directory: string,
 		filenames: string[]
 	): CordovaFileEntryApi[] {
-		return Array.from(filenames).map(filename => new CordovaFileEntryApi(
+		return filenames.map(filename => new CordovaFileEntryApi(
 			cordovaFile,
 			baseDirectoryDelegate,
 			directory,

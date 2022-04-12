@@ -14,7 +14,7 @@
     "build": "run-s build:tsc build:webpack copy:assets",
     "clean": "rimraf ./dist ./coverage",
     "rebuild": "run-s clean build",
-    "coverage:open": "open-cli \".\\coverage\\*\\html\\index.html\"",
+    "coverage:open": "open ./coverage/*/html/index.html",
     "coverage": "run-s test:single coverage:open",
     "copy:package": "cpy ./package.json ./dist/",
     "copy:readme": "cpy ./README.md ./dist/",
@@ -27,7 +27,7 @@
     "release:prepare:patch": "npm version patch",
     "bump": "run-s release:prepare:patch version:publish",
     "docs": "typedoc ./src/index.ts --out ./docs --excludePrivate",
-    "docs:open": "open-cli \".\\docs\\index.html\""
+    "docs:open": "open ./docs/index.html"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@capacitor/filesystem": "1.1.0",
     "@ionic-native/core": "~5.31.1",
     "@ionic-native/file": "~5.31.1",
     "@types/jasmine": "~3.6.3",

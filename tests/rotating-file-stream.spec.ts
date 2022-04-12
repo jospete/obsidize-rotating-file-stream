@@ -1,6 +1,6 @@
 import { CordovaFileEntryApi, RotatingFileStream } from '../src';
 
-import { MockCordovaFilePlugin } from './mock-cordova-file-plugin';
+import { MockCordovaFilePlugin } from './mocks/mock-cordova-file-plugin';
 import { dumpHexBuffer, generateRandomBuffer, sleep } from './util';
 
 describe('RotatingFileStream', () => {

@@ -1,19 +1,30 @@
-export { CordovaFileEntryApi } from './cordova-file-entry-api';
+export { CapacitorFileEntryApi } from './capacitor/capacitor-file-entry-api';
 
 export {
-	CordovaDirectoryEntryLike,
-	CordovaEntryLike,
-	CordovaFileEntryLike,
-	CordovaFileEntryMetadataLike,
-	CordovaFileFlags,
+	CapacitorFilePluginLike,
+	RFSAppendFileOptions,
+	RFSReadFileOptions,
+	RFSReadFileResult,
+	RFSStatOptions,
+	RFSStatResult,
+	RFSWriteFileOptions,
+	RFSWriteFileResult
+} from './capacitor/capacitor-file-plugin-like';
+
+export { CordovaFileEntryApi } from './cordova/cordova-file-entry-api';
+
+export {
 	CordovaFilePluginLike,
-	CordovaFileWriteOptions
-} from './cordova-file-plugin-like';
+	RFSCordovaDirectoryEntryLike,
+	RFSCordovaEntryLike,
+	RFSCordovaFileEntryLike,
+	RFSCordovaFileEntryMetadataLike,
+	RFSCordovaFileFlags,
+	RFSCordovaFileWriteOptions
+} from './cordova/cordova-file-plugin-like';
 
 export {
 	FileEntryLike,
 	RotatingFileStream,
 	RotatingFileStreamOptions
-} from './rotating-file-stream';
-
-export { Nullable } from './util';
+} from './core/rotating-file-stream';
