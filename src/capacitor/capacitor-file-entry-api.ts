@@ -87,28 +87,38 @@ export class CapacitorFileEntryApi implements FileEntryLike {
 
 	public async write(bufferData: ArrayBuffer, overwrite: boolean): Promise<void> {
 
+		await this.refresh();
+
 		const data = new TextDecoder().decode(bufferData);
 
-		if (overwrite && this.mSize > 0) {
-
-			await this.capacitorFilesystem.appendFile({
-				directory: this.directory,
-				path: this.filePath,
-				encoding: ASCII_ENCODING,
-				data
-			});
+		if (overwrite || this.mSize <= 0) {
+			await this.overwriteFileData(data);
 
 		} else {
-
-			const {uri} = await this.capacitorFilesystem.writeFile({
-				directory: this.directory,
-				path: this.filePath,
-				encoding: ASCII_ENCODING,
-				recursive: true,
-				data
-			});
-
-			this.mUri = uri;
+			await this.appendFileData(data);
 		}
+	}
+
+	private async appendFileData(data: string): Promise<void> {
+
+		await this.capacitorFilesystem.appendFile({
+			directory: this.directory,
+			path: this.filePath,
+			encoding: ASCII_ENCODING,
+			data
+		});
+	}
+
+	private async overwriteFileData(data: string): Promise<void> {
+
+		const {uri} = await this.capacitorFilesystem.writeFile({
+			directory: this.directory,
+			path: this.filePath,
+			encoding: ASCII_ENCODING,
+			recursive: true,
+			data
+		});
+
+		this.mUri = uri;
 	}
 }
