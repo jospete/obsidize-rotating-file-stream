@@ -46,6 +46,14 @@ export class CapacitorFileEntryApi implements FileEntryLike {
 		));
 	}
 
+	public getFileName(): string {
+		return this.filePath;
+	}
+
+	public getDirectoryName(): string {
+		return this.directory;
+	}
+
 	public toURL(): string {
 		return this.mUri!;
 	}
