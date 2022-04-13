@@ -5,6 +5,16 @@
 export interface FileEntryLike {
 
 	/**
+	 * Get the directory name for this entry
+	 */
+	getDirectoryName(): string;
+
+	/**
+	 * Get the file name for this entry
+	 */
+	getFileName(): string;
+
+	/**
 	 * Absolute path to the entry, typically a native file system URI.
 	 */
 	toURL(): string;

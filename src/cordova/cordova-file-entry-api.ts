@@ -56,6 +56,14 @@ export class CordovaFileEntryApi implements FileEntryLike {
 		return this.baseCordovaDirectoryNameDelegate();
 	}
 
+	public getFileName(): string {
+		return this.fileName;
+	}
+
+	public getDirectoryName(): string {
+		return this.directoryName;
+	}
+
 	public toURL(): string {
 		return this.targetFile ? this.targetFile.toURL() : '';
 	}
