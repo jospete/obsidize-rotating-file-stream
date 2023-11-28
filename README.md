@@ -1,14 +1,9 @@
 # @obsidize/rotating-file-stream
 
-A cordova/ionic flavor for rotating file streams on mobile devices.
+Simple wrapper for streaming data to files on mobile devices in hybrid apps.
 
-The primary goal of this module is to act as a transport outlet for [@obsidize/rx-console](https://github.com/jospete/obsidize-rx-console),
-and to give an out-the-box working log-to-file solution for ionic mobile apps.
-
-Note that while the intention of this module is for ionic app file logging, the actual implementation is
-written in pure typescript with no ionic / angular / cordova dependencies embedded in it.
-
-So theoretically this could be used as middleware for any system that has a file API and can run javascript.
+If you're using this for log capture on a cordova / capacitor app,
+consider using [cordova-plugin-secure-logger](https://github.com/jospete/cordova-plugin-secure-logger) instead.
 
 If you need a pure NodeJS implementation, use [rotating-file-stream](https://www.npmjs.com/package/rotating-file-stream) instead.
 
@@ -19,6 +14,10 @@ If you need a pure NodeJS implementation, use [rotating-file-stream](https://www
 ```bash
 npm install --save @obsidize/rotating-file-stream
 ```
+
+## API
+
+Source documentation can be found [here](https://jospete.github.io/obsidize-rotating-file-stream/)
 
 ## Usage
 
@@ -54,11 +53,12 @@ const buffer = new ArrayBuffer(42);
 fileStream.write(buffer).then(...);
 ```
 
-Thats it!
+3. Read data back later on:
 
+```typescript
+const entries = await fileStream.refreshAllEntries();
 
-See the [Ionic App Example](https://github.com/jospete/ionic-native-file-logging-example) for working sample code.
-
-## API
-
-Source documentation can be found [here](https://jospete.github.io/obsidize-rotating-file-stream/)
+for (const entry of entries) {
+	// read the entry data, or get its URL and do something with it
+}
+```
